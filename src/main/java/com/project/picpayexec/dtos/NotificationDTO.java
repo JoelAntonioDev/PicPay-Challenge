@@ -1,4 +1,15 @@
 package com.project.picpayexec.dtos;
 
-public record NotificationDTO(String email, String mensagem ) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class NotificationDTO{
+    private String email;
+    private String mensagem;
 }

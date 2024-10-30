@@ -41,12 +41,12 @@ public class User {
     private UserType userType;
 
     public User(UserDTO data){
-        this.firstName=data.firstName();
-        this.lastName=data.lastName();
-        this.document=data.document();
-        this.email=data.email();
-        this.password=data.password();
-        this.userType=data.userType();
-        this.balance=data.amount();
+        this.firstName=data.getFirstName();
+        this.lastName=data.getLastName();
+        this.document=data.getDocument();
+        this.email=data.getEmail();
+        this.password=data.getPassword();
+        this.userType=data.getUserType();
+        this.balance=data.getAmount();
     }
 }

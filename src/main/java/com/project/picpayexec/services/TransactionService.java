@@ -32,24 +32,24 @@ public class TransactionService {
     private NotificationService notificationService;
 
     public Transaction createTransaction(TransactionDTO transactionDTO) throws Exception {
-        User sender = this.userService.findUserById(transactionDTO.senderId());
-        User receiver = this.userService.findUserById(transactionDTO.receiverId());
+        User sender = this.userService.findUserById(transactionDTO.getSenderId());
+        User receiver = this.userService.findUserById(transactionDTO.getReceiverId());
 
-        userService.validateTransatcion(sender, transactionDTO.value());
+        userService.validateTransatcion(sender, transactionDTO.getValue());
 
-        boolean isAuthorized = this.authorizeTransaction(sender, transactionDTO.value());
+        boolean isAuthorized = this.authorizeTransaction(sender, transactionDTO.getValue());
         if(!isAuthorized){
             throw new TransacaoNaoAutorizadaException("Transação não autorizada");
         }
 
         Transaction transaction = new Transaction();
-        transaction.setAmount(transactionDTO.value());
+        transaction.setAmount(transactionDTO.getValue());
         transaction.setSender(sender);
         transaction.setReceiver(receiver);
         transaction.setTimestamp(LocalDateTime.now());
 
-        sender.setBalance(sender.getBalance().subtract(transactionDTO.value()));
-        receiver.setBalance(receiver.getBalance().add(transactionDTO.value()));
+        sender.setBalance(sender.getBalance().subtract(transactionDTO.getValue()));
+        receiver.setBalance(receiver.getBalance().add(transactionDTO.getValue()));
 
         this.transactionRepository.save(transaction);
         userService.saveUser(sender);
